@@ -1,0 +1,211 @@
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA CALCULATOR APP</title>
+</head>
+<style type="text/css">
+    *{
+        box-sizing: border-box;
+        margin:0px;
+        padding: 0px;
+    }
+    #container{
+        width:600px;
+        height:fit-content;
+        margin: 20px auto;
+    }
+    h1{
+        color:green;
+        font-size:50px;
+        letter-spacing: 3px;
+        word-spacing: 6px;
+    }
+    label{
+        font-size: 20px;
+        letter-spacing: 3px;
+        word-spacing: 2px;
+    }
+    input{
+        width:400px;
+        height:40px;
+        border-color: green;
+        border-width: 5px;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+    #grade{
+        width:100px;
+        height:40px;
+        border-color: green;
+        border-width: 4px;
+        border-radius: 5px;
+        font-size: 20px;
+    }
+    th{
+        background-color:green;
+        width: 250px;
+        height:35px;
+    }
+    #lists{
+        background-color:whitesmoke;
+        height:fit-content;
+        width:fit-content;
+        margin:5px auto;
+    }
+    tr{
+        font-size: 20px;
+        width: 250px;
+        height: 35px;
+    }
+    button{
+        background-color: green;
+        color:white;
+        font-size:20px;
+        padding: 5px;
+    }
+</style>
+<body>
+    <div id="container">
+        <h1 id=" head">
+            CGPA Calculator
+        </h1><br><br>
+        <label for = "course"> Enter course: </label> <input type="textarea" id="course" name="course"><br><br>
+       <label for ="grade" > Enter grade: </label> <select id ="grade">
+                        <option value = "A">A</option>
+                        <option value = "B">B</option>
+                        <option value = "C">C</option>
+                        <option value = "D">D</option>
+                        <option value = "E">E</option>
+                        <option value = "F">F</option>
+                     </select><br><br>
+        <label for ="unit" > Enter unit load: </label>
+         <input type="number" id="unit" min="1">
+        <br><br>
+        <button id="add" onclick="addData()">ADD COURSE</button>
+        </div><br> <br><br>
+        <div id="lists">
+        <table id="gpa">
+            <thead>
+                <tr>
+                <th> Course </th>
+                <th> Grade </th>
+                <th> Unit </th>
+                <th> Action</th>
+                </tr>
+            </thead>
+            <tbody id = "gpalist"></tbody>
+        </table>
+        <br><br>
+      <button id = "calculateCgpa" onclick ="calcGp()"> Calculate CGPA</button>
+      <p id = "demo"> Your CGPA is: <span id = "demo2"></span></p>
+        </div>
+    <script> 
+        const table = document.getElementById("gpa")
+        const lists = document.getElementById("lists")
+        const tbody = document.getElementById("gpalist")
+        const addbtn = document.getElementById("add")
+        const calcCgpa = document.getElementById("calculateCgpa")
+        const cgpa = document.getElementById("demo2")
+        let subjects = []
+        let editIndex = -1
+        
+
+            function addData(){
+                //lesson learnt ; when using const declaring ur variables inside the function you wan to use it in.
+                const course = document.getElementById("course")
+
+                const grade = document.getElementById("grade")?.value 
+
+                const unit = document.getElementById("unit")
+
+                const unitdata = parseInt(unit.value);
+            subjects.push({
+                subj:course?.value, grade, unitdata
+            })
+          
+            displaydata()
+            clearform()}
+
+                function displaydata(){
+                    tbody.innerHTML=" "
+                subjects.forEach((c , index) => {
+            const row = document.createElement("tr")
+
+            const courseCell = document.createElement("td")
+            courseCell.innerHTML = c.subj
+
+            const gradeCell = document.createElement("td")
+            gradeCell.innerHTML = c.grade
+
+            const unitCell = document.createElement("td")
+            unitCell.innerHTML = c.unitdata
+
+            const actionCell = document.createElement("td")
+            const editbtn = document.createElement("button")
+            const edittxt = document.createTextNode("Edit")
+            editbtn.onclick = () => edit(index)
+            editbtn.appendChild(edittxt)
+            const delbtn = document.createElement("button")
+            const deltxt = document.createTextNode("Delete")
+            delbtn.onclick = () => delsubject(index)
+            delbtn.appendChild(deltxt)
+            actionCell.appendChild(editbtn)
+            actionCell.appendChild(delbtn)
+
+            row.appendChild(courseCell)
+            row.appendChild(gradeCell)
+            row.appendChild(unitCell)
+            row.appendChild(actionCell)
+
+            tbody.appendChild(row)})
+                }
+                function delsubject(index){
+                    subjects.splice( index,1)
+                    displaydata()
+                }
+                function edit(index) {
+                    const subjectInput = document.getElementById("course")
+                    const selectedIndex = subjects[index]
+                    subjectInput.value = selectedIndex.subj
+                    document.getElementById("unit").value = selectedIndex.unitdata
+                    document.getElementById("grade").value = selectedIndex.grade
+
+                    editIndex = index
+                }
+                function clearform() {
+                    course.value = " "
+                    document.getElementById("grade").value = " "
+                    unit.value= ""
+                }
+            function calcGp() {
+                 const totalUnit = subjects.reduce((p,c) =>{
+                  return  p + c.unitdata } , 0)  // lesson learnt;  we use the return keyword else we we get undefined as or output becos "p +c.unidata alone in a function is not really performing any thing"
+                
+                const totalScore = subjects.reduce((p,c) =>{
+                    return p + total(c.grade) * c.unitdata
+                } , 0)
+                const mycgpa = totalUnit === 0 ? 0 : (totalScore/totalUnit).toFixed(2)
+                cgpa.innerHTML= mycgpa
+
+                function total(grade) {
+                    switch (grade)  //this grade access the grade properties inside the array
+                     {  case "A":
+                            return 5
+                        case "B": 
+                            return 4
+                        case "C":
+                            return 3
+                        case "D":
+                            return 2
+                        case "E":
+                            return 1
+                        case "F":
+                            return 0
+                    }
+                }
+            }
+    </script>
+</body>
+</html> 

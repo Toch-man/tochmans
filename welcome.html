@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8" content="width= device-width, initial-scale=1.0">
+        <title>WELCOME TO TOCH-MNS2 WORLD</title>
+    </head>
+    <body>
+        <style type ="text/css">
+            *{
+              box-sizing: border-box;
+              margin:0px;
+              padding:0px;
+              background-color: darkseagreen;
+            }
+            #content{  
+                width:1000px;
+                height:800px;
+                margin : 20px auto
+            }
+            #header{
+            width:100%;
+            max-height: 50%;
+           }
+           #menu{
+            color:white;
+            width:20px;
+            height:20px;
+            margin-left:97%;
+           }
+           #menuContent{
+            display:none;
+            margin-left: 80%;
+            height:fit-content;
+            width:20%;
+            background-color: white;
+            padding: 20px;
+           }
+           #header:hover > #menuContent{
+            display:inline-block;
+           }
+           a{
+            text-decoration: none;
+            margin: 5px;
+            background-color: white;}
+        </style>
+         <div id ="header">
+            <img id = "menu" src="icon-hamburger.svg"></img><br>
+            <div id = "menuContent">
+                <a href="welcomePage.html">Home</a><br><br>
+                <a href="#">Contact us</a><br><br>
+                <a href="welcome.html">View our services</a><br><br>
+            </div>
+        </div>
+        <div id ="content">
+    <h1> WELCOME TO TOCH-MAN'S WORLD </h1><br>
+    <h2>Our service </h2><br>
+    <h3> We offer source codes to aid beginners in their learning progress below are someof our beginner friendly projects </h3><br><br>
+    <p>Calculate your CGPA with us <a href = "CGPA.html">click to calculate your CGPA</a></p><br>
+    <p>Make us of our Todo list <a href = "TODO LIST APP.html" > click to see our Todo list app</a></p><br>
+    <p> follow us on Github to view mor eof our beginners project source code <a href= http//toch-man2/github.com>click here to see our Github page</a></p><br>
+        </div>
+        <div id = "reviews">
+            <p id = "demo">
+            Tell us our you enjoyed our service
+            </p>
+            <form onsubmit=" return validation()" action = "welcomePage.html">
+                <input type = "text" id = "name" class="inp" name="userName">
+                <p class="ins"> Same name used to login</p>
+                <input type = "email" id = "email" class="inp" name = "userEmail">
+                <input type="textarea" id = "review" class = "inp" name = "review">
+                <input type ="submit" id ="submit">
+            </form>
+        </div>
+        <script>
+            let userName = document.getElementById("name")?.value 
+            let reviews = document.getElementById("review")?.value
+            let userEmail = document.getElementById("email")?.value
+            function validation (){
+                if(userName == ""){
+                    alert("Please enter your username")
+                    return false
+                }
+                if (reviews == ""){
+                    alert("Review cannot be empty")
+                    return false
+                }
+                if (userEmail == ""){
+                    alert("Please enter your email address")
+                    return false
+                }
+                if (userEmail && userName && reviews !=null){
+                    alert("Thanks for your reviews")
+                }
+
+            }
+        </script>
+    </body>
+</html>

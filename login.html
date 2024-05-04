@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" , width ="device-width,initial-scale=1.0">
+        <title>TECHNO-HACK LOGIN PAGE</title>
+    </head>
+    <style type="text/css">
+        body,html{
+            box-sizing: border-box;
+            margin:0px;
+            padding:0px;
+            background-color:purple;
+        }
+        .TECHNO-HACK{
+            text-align: center;
+        }
+        #login-page{
+            width:fit-content;
+            margin:40px auto;
+            padding: 20px;
+            border-color:purple ;
+            background-color:whitesmoke;
+            border-width: 5px;
+            color:purple;
+            font-size: 15px;
+            font-weight: bold;
+            box-shadow: inset;
+        }
+        .details{
+            margin: 10px;
+            width:400px;
+            height:30px;
+            border-radius: 10px;
+            border-color:purple;
+            border-width: 3px;
+        }
+        #demo{
+            margin-top:0px;
+            color: black !important;
+            font-weight: lighter;
+            font-size: 15px;
+        }
+        label{
+            width:10px;
+        }
+        #submit{
+            background-color: purple;
+            width: 120px;
+            height:30px;
+            color:white;
+        }
+        input::placeholder{
+            color:purple;
+            font-weight: lighter;
+        }
+        #demo2{
+            color:red;
+            font-size: 25px;
+            font-weight: normal;
+        }
+    </style>
+    <body>
+        <div id="login-page">
+            <i></i>
+            <h1 class="TECHNO-HACK">Techno-hack Edu-Tech</h1>
+            <br><br>
+            <form  onsubmit="return validiateForm()"  action ="welcomePage.html" >
+                FIRST-NAME:
+                <br>
+                <input type="text" class="details" id="first-name" name="first-name">
+                <br>
+                LAST-NAME:
+                <br>
+                <input type="text" class="details" id="last-name" name="first-name" >
+                <br>
+                NUMBER:
+                <br>
+                <input type="tel" class="details"  id="number" name="number" >
+                <br>
+                EMAIL:
+                <br>
+                <input type="email" class="details" id="email" name="email" placeholder="technohack@gmail.com" >
+                <br>
+                GENDER:
+                <br>
+                <br>
+                <label class="label" for="male">MALE:</label>
+                <input type="radio" class=""  id="male" name="gender" value="male">
+                <br>
+                <label  class="label" for="female">FEMALE:</label>
+                <input type="radio" class=""  id="female" name="gender" value="female">
+                <br>
+                <br>
+                PASSWORD:
+                <br>
+                <input type="password" class="details" id="password" name="password"   >
+                <p id="demo">must contain one capital letter,one number one small letter</p>
+                <br>
+                CONFIRM PASSWORD:
+                <br>
+                <input type="password" class="details" id="co-password" name="co-password" placeholder="re-enter password">
+                <p id="demo2"></p>
+                <input type="submit" id = "submit"/>
+            </form>
+        </div>
+        <script>
+            function validiateForm() {
+            const FirstName = document.getElementById("first-name").value
+            const LastName = document.getElementById("last-name").value
+            const password = document.getElementById("password").value
+            const CoPassword = document.getElementById("co-password").value
+            const num = document.getElementById("number").value
+            const email  = document.getElementById("email").value
+            const gender = document.getElementsByClassName("label").value
+            const errorMessage = document.getElementById("demo2")
+            
+                errorMessage.innerHTML = " "
+                if (FirstName ==""){
+                    document.getElementById("demo2").innerHTML += "<p> Input firstname to register </p>"
+                    return false
+                } 
+                if (LastName == ""){
+                    document.getElementById("demo2").innerHTML += "<p> Input lastname to register </p>"
+                    return false
+                }
+                if (password == ""){
+                    document.getElementById("demo2").innerHTML += "<p> enter a strong password </p>"
+                    return false
+                }
+                if (CoPassword == ""){
+                    document.getElementById("demo2").innerHTML += " <p> confirm password </p>"
+                    return false
+                }
+                if (num == ""){
+                    document.getElementById("demo2").innerHTML += " <p> Input your phone number </p> "
+                    return false
+                }
+                if (email == ""){
+                    document.getElementById("demo2").innerHTML += " <p> Input your email adress </p>"
+                    return false
+                }
+                if ( password !== CoPassword){
+                    document.getElementById("demo2").innerHTML += " <p> pasword doesn't match </p>"
+                    return false
+                }
+            }
+        </script>
+    </body>
+</html>

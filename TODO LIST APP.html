@@ -1,0 +1,143 @@
+<!Doctype html>
+<html>
+<head>
+    <meta name="viewport">
+    <title>To do</title>
+</head>
+<body>
+    <style type="text/css">
+        *{box-sizing:border-box;}
+        h1{font-size: 40px;
+            color:black;}
+        body{
+            padding:0px;
+            margin:0px;
+        }
+        #cont{  width:150vh;
+                height:300px;
+                border-style: solid;
+                border-color: lawngreen;
+                border-radius: 10px;
+                padding: 40px 200px;
+                margin:0px auto;}
+
+        .btn{   background-color: lawngreen;
+                max-height: 20px;
+                max-width: 60px;}
+        
+        input{  width:280px;
+                height:50px;
+                border-style: solid;
+                border-color:rgb(19, 11, 41);
+                font-size: 20px;
+                border-radius: 10px;
+                border-width:4px;
+                }
+        input::placeholder{ color:rgb(26, 129, 26)}
+        input:hover{
+                background-color:yellow;
+        }
+        input:hover::placeholder{
+                font-size: 20px;
+                color:black;
+        }
+        .todolist{margin-left: 150px;
+                  vertical-align: middle;
+                  font-size: 20px;
+                  margin-top: 50PX;
+                  }
+        li> span > button{background-color:lawngreen;
+               height: 25px;
+               width:fit-content;
+               }
+        li{
+            color:rgb(206, 31, 31);
+            text-align: left;
+        }
+        li{
+                min-height:25px;
+                margin-top:10px;
+                border-color:black ;
+                border-style: inset;
+                border-width: 2px;
+                background-color:whitesmoke;
+                width:fit-content;
+        }
+        li > span{
+           max-width :100px;
+           max-height :100px;
+           padding-left:420px;
+        }
+    </style>
+    <div id="cont">
+        <h1>To-Do List</h1>
+        <input  type="textarea" class="items" id="do" name="to"  placeholder="Add items"  maxlength="20">
+        <button class="btn" id="Add"onclick="add()" >ADD</button>
+        <button class="btn" id="clear">Clear</button>
+    </div>
+    <br>
+    <div class="todolist" id="tod"> 
+        <ul id = "hey">
+            
+        </ul>
+    </div>
+   <script>
+    
+       let todoLists = []  
+       const list  = document.getElementById("hey")
+       const clearList = document.getElementById("clear")
+
+       function add(){
+        const input = document.getElementById("do")
+        const text = input?.value
+        todoLists.push({sub:text})
+        
+        display()
+        delAll()
+       }
+
+       function display() {
+        list.innerHTML = " "
+        todoLists.forEach((c , index) => {
+             const lists = document.createElement("li")
+            lists.innerHTML = c.sub
+            const btnContainer = document.createElement("span")
+            btnContainer.className =" btnContainer"
+            const delbutton = document.createElement("button")
+            delbutton.className = "delete"
+            const text1 = document.createTextNode("Done/Remove")
+            const editbutton = document.createElement("button")
+            editbutton.className = "edit"
+            const text2 = document.createTextNode("Edit")
+            btnContainer.appendChild(delbutton)
+            btnContainer.appendChild(editbutton)
+            delbutton.onclick = () => del(index)
+            delbutton.appendChild(text1)
+            editbutton.onclick = () => edit(index)
+            editbutton.appendChild(text2)
+            lists.appendChild(btnContainer) 
+            list.appendChild(lists)})
+       }
+       function del(index) {
+        todoLists.splice(index ,1)
+        display()
+       }
+       function edit(index){
+        const topic = document.getElementById("do")
+        const selectedIndex = todoLists[index]
+        topic.value = selectedIndex.sub
+       }
+       function delAll() {
+            const input = document.getElementById("do").value=""
+       }
+       function clear(){
+           document.getElementById("tod").innerHTML = ""
+       }
+       clearList.addEventListener("click" , function(){
+        const length = todoLists.length
+        todoLists.splice(0 ,length)
+        document.getElementById("hey").innerHTML=" "
+       })
+   </script>
+</body>
+</html>
